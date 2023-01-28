@@ -1,0 +1,95 @@
+/* GENERAL */
+/* * {
+    margin: 0;
+    padding: 0;
+} */
+
+body {
+    background-color: #E0E0E2;
+    font-family: 'Markazi Text', serif;
+    margin: 3rem 5%;
+}
+/* HEADER */
+img.logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media screen and (max-width: 900px) {
+    img.logo {
+        width: 5rem;
+        object-fit: cover;
+        align-items: left;
+    }
+}
+
+/* NAV */
+nav ul {
+    background-color: #2f2f2f;
+    text-align: center;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+nav li {
+    display: inline-block;
+    margin-left: 1rem;
+    padding: 0.75rem;
+}
+
+nav a {
+    color: #E0E0E2;
+    text-decoration: none;
+    font-size: 1.75rem;
+}
+
+nav li:hover {
+    background-color: gray;
+    transition-duration: 0.5s;
+}
+
+nav li:active {
+    background-color: red;
+    transition-duration: 0.25s;
+}
+
+/* Humburger */
+/* nav > #nav-check {
+    display: none;
+}
+
+nav > .nav-btn {
+    display: none;
+} */
+
+@media screen and (max-width: 900px) {
+    /* nav {
+        display: flex;
+        flex-direction: column;
+    } */
+    nav > .nav-btn {
+        display: inline-block;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+    }
+    nav > .nav-btn > label {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        padding: 13px;
+    }
+    nav > .nav-btn > label:hover,.nav  #nav-check:checked ~ .nav-btn > label {
+        background-color: rgba(0, 0, 0, 0.3);
+    }
+    nav > .nav-btn > label > span {
+        display: block;
+        width: 25px;
+        height: 10px;
+        border-top: 2px solid #eee;
+    }
+}

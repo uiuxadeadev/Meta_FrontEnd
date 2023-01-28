@@ -1,0 +1,19 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+img {
+    border: 0;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap; /* https://developer.mozilla.org/ja/docs/Web/CSS/flex-wrap */
+    justify-content: space-between;
+    padding: 5px;
+}
+
+.item {
+    margin: 5px;
+}

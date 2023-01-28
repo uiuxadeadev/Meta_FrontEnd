@@ -1,0 +1,228 @@
+/* GENERAL */
+/* * {
+    margin: 0;
+    padding: 0;
+} */
+
+body {
+    background-color: #E0E0E2;
+    font-family: 'Markazi Text', serif;
+    margin: 3rem 5%;
+}
+/* HEADER */
+img.logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* NAV */
+nav ul {
+    background-color: #2f2f2f;
+    text-align: center;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+nav li {
+    display: inline-block;
+    margin-left: 1rem;
+    padding: 0.75rem;
+}
+
+nav a {
+    color: #E0E0E2;
+    text-decoration: none;
+    font-size: 1.75rem;
+}
+
+nav li:hover {
+    background-color: gray;
+    transition-duration: 0.5s;
+}
+
+nav li:active {
+    background-color: red;
+    transition-duration: 0.25s;
+}
+
+/* Humburger */
+nav > #nav-check {
+    display: none;
+}
+
+nav > .nav-btn {
+    display: none;
+}
+
+@media screen and (max-width: 900px) {
+    nav {
+        display: flex;
+        flex-direction: column;
+    }
+    nav > .nav-btn {
+        display: inline-block;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+    }
+    nav > .nav-btn > label {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        padding: 13px;
+    }
+    nav > .nav-btn > label:hover,.nav  #nav-check:checked ~ .nav-btn > label {
+        background-color: rgba(0, 0, 0, 0.3);
+    }
+    nav > .nav-btn > label > span {
+        display: block;
+        width: 25px;
+        height: 10px;
+        border-top: 2px solid #eee;
+    }
+}
+
+/* MAIN */
+section {
+    display: flex;
+}
+
+article {
+    flex: 1;
+    width: 500px;
+}
+
+main {
+    text-align: center;
+}
+
+h1 {
+    font-size: 3rem;
+    text-align: left;
+}
+
+section.top-article {
+    margin-bottom: 30px;
+}
+
+section article.top-article { 
+    position: relative;
+}
+
+section article.top-article div {
+    position: absolute;
+    top: 25%;
+    left: 5%;    
+    color: #FFFFFF;
+}
+section article.top-article div p { 
+    word-break: break-word;
+    text-align: left;
+    padding-right: 300px;
+    font-weight: bold;
+    font-size: larger;
+}
+
+section.other-article { 
+    width: 100%;
+}
+
+section article.other-article { 
+    background-color:bisque;
+    padding: 0 20px;
+    text-align: left;
+    border-radius: 20px;
+    width: 100%;
+}
+
+section article.other-article:not(:last-child) { 
+    margin-right: 1rem;
+}
+
+section article.other-article div p { 
+    word-break: break-word;
+}
+
+/* article */
+@media screen and (max-width: 900px) {
+    section article.top-article div p { 
+        display: none;
+    }
+
+    section.other-article {
+        display: flex;
+        flex-direction: column;
+    }
+
+    section article.other-article {
+        flex: 1;
+        width: 95%;
+        margin-bottom: 30px;
+        padding: 20px 20px;
+    }
+}
+
+/* To fix the position according to the size of the parent element article */
+img.top {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+}
+
+img .top, .other{
+    width: 100%;
+    height: 40%;
+    object-fit: cover;
+}
+
+
+h2 {
+    color: #000000;
+    font-size: 2rem;
+    text-align: left;
+}
+
+header > img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h2 > span {
+    color: #FA9F42;
+    font-size: 0.75em;
+}
+
+/* FOOTER */
+footer {
+    display: flex;
+    text-align: center;
+    margin-top: 30px;
+}
+
+footer div {
+    flex: 1;  
+    text-align: left;
+}
+
+footer div img.footer-image {
+    width: 5rem;
+    object-fit: cover;
+}
+
+
+.copyright {
+    margin-top: 10px;
+    padding-top: 1px;
+    font-size: 0.75em;
+    border-top: 0.1rem solid gray;
+}
+
+footer div p {
+    margin-top: 0;
+    text-align: right;
+}
