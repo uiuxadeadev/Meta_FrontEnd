@@ -1,3 +1,5 @@
+// ref https://www.coursera.org/learn/advanced-react/supplement/YbOdd/solution-build-a-radio-group-component
+
 import * as React from "react";
 import "./styles.css";
 
@@ -5,7 +7,7 @@ export const RadioGroup = ({ onChange, selected, children }) => {
   // Use React.Children.map and React.cloneElement to clone the children
   // and pass the correct props to each RadioOption
   const RadioOptions = React.Children.map(children, (child) => {
-    console.log("onChange", onChange);
+    // console.log("onChange", onChange);
     return React.cloneElement(child, {
       onChange,
       checked: child.props.value === selected,
@@ -30,6 +32,9 @@ export const RadioOption = ({ value, checked, onChange, children }) => {
         name={value}
         value={value}
         checked={checked}
+        // use the onChange event from the radio input,
+        // retrieve the value property from the event target object
+        // and pass it to the onChange prop as the argument
         onChange={(e) => {
           onChange(e.target.value);
         }}
