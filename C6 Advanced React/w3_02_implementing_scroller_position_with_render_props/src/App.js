@@ -23,20 +23,18 @@ const MousePosition = ({ render }) => {
     return () => {
       window.removeEventListener("mousemove", handleMousePositionChange);
     };
-
-    return render({ mousePosition });
   }, []);
 
   // What should be returned here?
-  return null;
+  return render({ mousePosition });
 };
 
 // This component should not receive any props
-const PanelMouseLogger = ({ mousePosition }) => {
+const PanelMouseLogger = () => {
   // The below if statement can be removed after the render props pattern is implemented
-  if (!mousePosition) {
-    return null;
-  }
+  // if (!mousePosition) {
+  //   return null;
+  // }
   return (
     <div className="BasicTracker">
       <p>Mouse position:</p>
@@ -53,11 +51,11 @@ const PanelMouseLogger = ({ mousePosition }) => {
 };
 
 // This component should not receive any props
-const PointMouseLogger = ({ mousePosition }) => {
+const PointMouseLogger = () => {
   // The below if statement can be removed after the render props pattern is implemented
-  if (!mousePosition) {
-    return null;
-  }
+  // if (!mousePosition) {
+  //   return null;
+  // }
   return (
     <MousePosition
       render={({ mousePosition }) => (
