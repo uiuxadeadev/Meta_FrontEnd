@@ -44,6 +44,30 @@ const Header = () => {
     }
   };
 
+  useEffect(() => {
+    let prevScrollPos = window.scrollY;
+
+    const handleScroll = () => {
+      const currentScrollPos = window.scrollY;
+      const headerElement = headerRef.current;
+      if (!headerElement) {
+        return;
+      }
+      if (prevScrollPos > currentScrollPos) {
+        headerElement.style.transform = "translateY(0)";
+      } else {
+        headerElement.style.transform = "translateY(-200px)";
+      }
+      prevScrollPos = currentScrollPos;
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <Box
       position="fixed"
@@ -55,6 +79,7 @@ const Header = () => {
       transitionDuration=".3s"
       transitionTimingFunction="ease-in-out"
       backgroundColor="#18181b"
+      ref={headerRef}
     >
       <Box color="white" maxWidth="1280px" margin="0 auto">
         <HStack
@@ -66,7 +91,13 @@ const Header = () => {
           <nav>
             {/* Add social media links based on the `socials` data */}
             {socials.map(({ icon, url }) => (
-              <a href={url} key={url} style={{ marginRight: 30 }}>
+              <a
+                href={url}
+                key={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ marginRight: 30 }}
+              >
                 <FontAwesomeIcon size="2x" icon={icon} />
               </a>
             ))}
@@ -74,8 +105,18 @@ const Header = () => {
           <nav>
             <HStack spacing={8}>
               {/* Add links to Projects and Contact me section */}
-              <a href="#projects-section">Projects</a>
-              <a href="#contactme-section">Contact me</a>
+              <a
+                href="#projects-section"
+                onClick={handleClick("projects-section")}
+              >
+                Projects
+              </a>
+              <a
+                href="#contactme-section"
+                onClick={handleClick("contactme-section")}
+              >
+                Contact me
+              </a>
             </HStack>
           </nav>
         </HStack>

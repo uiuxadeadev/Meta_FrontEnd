@@ -8,21 +8,44 @@ const Card = ({ title, description, imageSrc }) => {
   // You should be able to implement the component with the elements imported above.
   // Feel free to import other UI components from Chakra UI if you wish to.
   return (
-    <HStack align="center">
-      <VStack align="left" bg="#ffffff" borderRadius="xl">
-        <Image src={imageSrc} borderRadius="xl" object-fit="cover" />
-        <VStack p={5} align="left">
-          <Heading size="md" fontWeight="bold" color="black">
+    // <HStack align="center">
+    //   <VStack align="left" bg="#ffffff" borderRadius="xl">
+    //     <Image src={imageSrc} borderRadius="xl" object-fit="cover" />
+    //     <VStack p={5} align="left">
+    //       <Heading size="md" fontWeight="bold" color="black">
+    //         {title}
+    //       </Heading>
+    //       <Text color="gray.500">{description}</Text>
+    //       <HStack color="black">
+    //         <Text>See more</Text>
+    //         <FontAwesomeIcon icon={faArrowRight} size="1x" />
+    //       </HStack>
+    //     </VStack>
+    //   </VStack>
+    // </HStack>
+
+    <VStack
+      color="black"
+      backgroundColor="white"
+      cursor="pointer"
+      borderRadius="xl"
+    >
+      <Image borderRadius="xl" src={imageSrc} alt={title} />
+      <VStack spacing={4} p={4} alignItems="flex-start">
+        <HStack justifyContent="space-between" alignItems="center">
+          <Heading as="h3" size="md">
             {title}
           </Heading>
-          <Text color="gray.500">{description}</Text>
-          <HStack color="black">
-            <Text>See more</Text>
-            <FontAwesomeIcon icon={faArrowRight} size="1x" />
-          </HStack>
-        </VStack>
+        </HStack>
+        <Text color="#64748b" fontSize="lg">
+          {description}
+        </Text>
+        <HStack spacing={2} alignItems="center">
+          <p>See more</p>
+          <FontAwesomeIcon icon={faArrowRight} size="1x" />
+        </HStack>
       </VStack>
-    </HStack>
+    </VStack>
   );
 };
 

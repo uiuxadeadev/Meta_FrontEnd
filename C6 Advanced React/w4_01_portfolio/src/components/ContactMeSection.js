@@ -28,33 +28,20 @@ const LandingSection = () => {
       type: "",
       comment: "",
     },
-    onSubmit: (values, { setSubmitting, resetForm }) => {
+    onSubmit: (values) => {
       console.log(values);
       submit("https://john.com/contactme", values);
-      // submit({
-      //   firstName: values.firstName,
-      //   email: values.email,
-      //   type: values.type,
-      //   comment: values.comment,
-      // });
-      // setSubmitting(true);
     },
     validationSchema: Yup.object({
       firstName: Yup.string().required("Name is required"),
       email: Yup.string()
         .email("Invalid email address")
         .required("Email is required"),
-      type: Yup.string().required("Type is required"),
       comment: Yup.string()
         .required("Comment is required")
         .min(25, "Comment must be at least 25 characters"),
     }),
   });
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert("good");
-  };
 
   useEffect(() => {
     if (response) {
