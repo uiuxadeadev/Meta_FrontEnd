@@ -1,17 +1,28 @@
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import {
+  ChakraProvider,
+  Flex,
+  Box,
+  Text,
+  Button,
+  Image,
+} from "@chakra-ui/react";
 import Navigation from "./components/Navigation";
+import Home from "./components/Home";
 import Reservations from "./components/Reservations";
+import Order from "./components/Order";
+
 import logo from "./assets/Logo.svg";
 
 function App() {
-  const [activePage, setActivePage] = useState("Home");
+  // const [activePage, setActivePage] = useState("Home");
 
-  useEffect(() => {
-    const element = document.getElementById(activePage);
-    element.scrollIntoView({ behavior: "smooth" });
-  }, [activePage]);
+  // useEffect(() => {
+  //   const element = document.getElementById(activePage);
+  //   element.scrollIntoView({ behavior: "smooth" });
+  // }, [activePage]);
 
   return (
     <>
@@ -28,29 +39,44 @@ function App() {
         />
       </head>
 
-      {/* <div className="App">
-        <Navigation setActivePage={setActivePage} />
-        <Home id="Home" />
-        <About id="About" />
-        <Menu id="Menu" />
-        <Reservations id="Reservations" />
-        <Order id="Order" />
-      </div> */}
-
-      <Router>
+      {/* <Router>
         <div className="App">
           <Navigation setActivePage={setActivePage} />
           <Home id="Home" />
           <About id="About" />
+          <Menu id="Menu" />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
-            {/* <Route path="/menu" element={<Menu />} /> */}
+            <Route path="/menu" element={<Menu />} />
             <Route path="/reservations" element={<Reservations />} />
-            {/* <Route path="/order" element={<Order />} /> */}
+            <Route path="/order" element={<Order />} />
           </Routes>
         </div>
-      </Router>
+      </Router> */}
+      <ChakraProvider>
+        <Router>
+          <Box bg="gray.200" py="2">
+            <Flex
+              maxW="1000px"
+              mx="auto"
+              my="4"
+              justify="space-between"
+              align="center"
+            >
+              <Image src={logo} alt="Restaurant logo" w="10rem" h="auto" />
+              <Navigation />
+            </Flex>
+          </Box>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/menu" element={<Menu />} />
+            <Route path="/reservations" element={<Reservations />} />
+            <Route path="/order" element={<Order />} />
+          </Routes>
+        </Router>
+      </ChakraProvider>
     </>
   );
 }
@@ -71,15 +97,6 @@ function App() {
 //   );
 // }
 
-function Home(props) {
-  return (
-    <section id={props.id}>
-      <h1>Welcome to our restaurant!</h1>
-      <p>We offer delicious food and great service.</p>
-    </section>
-  );
-}
-
 function About(props) {
   return (
     <section id={props.id}>
@@ -92,19 +109,19 @@ function About(props) {
   );
 }
 
-// function Menu(props) {
-//   return (
-//     <section id={props.id}>
-//       <h2>Our Menu</h2>
-//       <p>Check out our delicious menu items:</p>
-//       <ul>
-//         <li>Appetizers</li>
-//         <li>Entrees</li>
-//         <li>Desserts</li>
-//       </ul>
-//     </section>
-//   );
-// }
+function Menu(props) {
+  return (
+    <section id={props.id}>
+      <h2>Our Menu</h2>
+      <p>Check out our delicious menu items:</p>
+      <ul>
+        <li>Appetizers</li>
+        <li>Entrees</li>
+        <li>Desserts</li>
+      </ul>
+    </section>
+  );
+}
 
 // function Reservations(props) {
 //   return (

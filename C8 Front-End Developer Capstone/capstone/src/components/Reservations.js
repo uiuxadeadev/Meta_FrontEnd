@@ -1,9 +1,23 @@
-import React from 'react'
+import React from "react";
 
 const Reservations = () => {
   return (
-    <div>Reservations</div>
-  )
-}
+    <>
+      <div>Reservations</div>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+    </>
+  );
+};
 
-export default Reservations
+export default Reservations;
