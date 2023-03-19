@@ -43,28 +43,30 @@ function App() {
       </head>
 
       <ChakraProvider>
-        <Router>
-          <Box bg="gray.200" py="2">
-            <Flex
-              maxW="1000px"
-              mx="auto"
-              my="4"
-              justify="space-between"
-              align="center"
-            >
-              <Image src={logo} alt="Restaurant logo" w="10rem" h="auto" />
-              <Navigation />
-            </Flex>
-          </Box>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/menu" element={<Menu />} />
-            <Route path="/reservations" element={<Reservations />} />
-            <Route path="/order" element={<Order />} />
-          </Routes>
-        </Router>
-        <Footer />
+        <main>
+          <Router>
+            <Box bg="gray.200" py="2">
+              <Flex
+                maxW="1000px"
+                mx="auto"
+                my="4"
+                justify="space-between"
+                align="center"
+              >
+                <Image src={logo} alt="Restaurant logo" w="10rem" h="auto" />
+                <Navigation />
+              </Flex>
+            </Box>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/menu" element={<Menu />} />
+              <Route path="/reservations" element={<Reservations />} />
+              <Route path="/order" element={<Order />} />
+            </Routes>
+          </Router>
+          <Footer />
+        </main>
       </ChakraProvider>
     </>
   );

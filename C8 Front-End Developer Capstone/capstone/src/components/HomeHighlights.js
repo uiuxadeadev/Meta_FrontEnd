@@ -14,29 +14,36 @@ import FoodCards from "./FoodCards";
 const HomeHighlights = () => {
   return (
     <>
-      <Flex
-        p={4}
-        w="1000px"
-        maxW="1000px"
-        mx="auto"
-        mt="20"
-        mb="10"
-        justify="space-between"
-        align="center"
-      >
-        <Box flex="1">
-          <Text fontSize="36px" textAlign="left">
-            This week's specials!
-          </Text>
-        </Box>
-        <Box flex="1" textAlign="right">
-          <Button w="200px" h="60px" fontSize="xl" color="#333333" bg="#F4CE14">
-            Online Menu
-          </Button>
-        </Box>
-      </Flex>
+      <Stack my="20" align="center">
+        <Flex
+          p={4}
+          w="1000px"
+          maxW="1000px"
+          mx="auto"
+          mb="10"
+          justify="space-between"
+          align="center"
+        >
+          <Box flex="1">
+            <Text fontSize="36px" textAlign="left">
+              This week's specials!
+            </Text>
+          </Box>
+          <Box flex="1" textAlign="right">
+            <Button
+              w="200px"
+              h="60px"
+              fontSize="xl"
+              color="#333333"
+              bg="#F4CE14"
+            >
+              Online Menu
+            </Button>
+          </Box>
+        </Flex>
 
-      <FoodCards />
+        <FoodCards />
+      </Stack>
     </>
   );
 };

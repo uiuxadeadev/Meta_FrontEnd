@@ -31,12 +31,12 @@ const Footer = () => {
     {
       icon: <FaFacebook />,
       label: "Facebook",
-      href: "#",
+      href: "https://www.facebook.com/",
     },
     {
       icon: <FaInstagram />,
       label: "Instagram",
-      href: "#",
+      href: "https://www.instagram.com/",
     },
   ];
 
@@ -72,15 +72,20 @@ const Footer = () => {
             </Text>
             <HStack spacing={2}>
               {socialLinks.map((item) => (
-                <IconButton
+                <a
                   key={item.label}
-                  aria-label={item.label}
-                  icon={item.icon}
                   href={item.href}
-                  fontSize="xl"
-                  bg="transparent"
-                  _hover={{ bg: "transparent" }}
-                />
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <IconButton
+                    aria-label={item.label}
+                    icon={item.icon}
+                    fontSize="xl"
+                    bg="transparent"
+                    _hover={{ bg: "transparent" }}
+                  />
+                </a>
               ))}
             </HStack>
           </Stack>
