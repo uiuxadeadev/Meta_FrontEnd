@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Flex, Text, Button } from "@chakra-ui/react";
+import { Flex, Button } from "@chakra-ui/react";
 
-const Navigation = (props) => {
+const HeaderNav = (props) => {
   return (
     <>
       {/* <nav>
@@ -21,10 +21,22 @@ const Navigation = (props) => {
           <Button as={Link} to="/" variant="ghost" colorScheme="gray" mr="2">
             Home
           </Button>
-          <Button as={Link} to="/about" variant="ghost" colorScheme="gray" mr="2">
+          <Button
+            as={Link}
+            to="/about"
+            variant="ghost"
+            colorScheme="gray"
+            mr="2"
+          >
             About
           </Button>
-          <Button as={Link} to="/menu" variant="ghost" colorScheme="gray" mr="2">
+          <Button
+            as={Link}
+            to="/menu"
+            variant="ghost"
+            colorScheme="gray"
+            mr="2"
+          >
             Menu
           </Button>
           <Button
@@ -45,4 +57,4 @@ const Navigation = (props) => {
   );
 };
 
-export default Navigation;
+export default HeaderNav;

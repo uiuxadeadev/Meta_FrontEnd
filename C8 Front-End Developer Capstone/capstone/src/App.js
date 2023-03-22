@@ -1,32 +1,19 @@
 import "./App.css";
-import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import {
-  ChakraProvider,
-  Flex,
-  Box,
-  Text,
-  Button,
-  Image,
-} from "@chakra-ui/react";
-import Navigation from "./components/Navigation";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ChakraProvider } from "@chakra-ui/react";
+import { AlertProvider } from "./context/alertContext";
+import Alert from "./components/Alert";
 import Home from "./components/Home";
 import About from "./components/About";
 import Menu from "./components/Menu";
 import Reservations from "./components/Reservations";
+import ReservationConfirmed from "./components/ReservationConfirmed";
 import Order from "./components/Order";
 import Footer from "./components/Footer";
-
-import logo from "./assets/Logo.svg";
+import Header from "./components/Header";
 
 function App() {
-  // const [activePage, setActivePage] = useState("Home");
-
-  // useEffect(() => {
-  //   const element = document.getElementById(activePage);
-  //   element.scrollIntoView({ behavior: "smooth" });
-  // }, [activePage]);
-
   return (
     <>
       <head>
@@ -43,30 +30,27 @@ function App() {
       </head>
 
       <ChakraProvider>
-        <main>
-          <Router>
-            <Box bg="gray.200" py="2">
-              <Flex
-                maxW="1000px"
-                mx="auto"
-                my="4"
-                justify="space-between"
-                align="center"
-              >
-                <Image src={logo} alt="Restaurant logo" w="10rem" h="auto" />
-                <Navigation />
-              </Flex>
-            </Box>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/menu" element={<Menu />} />
-              <Route path="/reservations" element={<Reservations />} />
-              <Route path="/order" element={<Order />} />
-            </Routes>
-          </Router>
-          <Footer />
-        </main>
+        <AlertProvider>
+          <main>
+            <Router>
+              <Header />
+
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/menu" element={<Menu />} />
+                <Route path="/reservations" element={<Reservations />} />
+                <Route path="/order" element={<Order />} />
+                <Route
+                  path="/ReservationConfirmed"
+                  element={<ReservationConfirmed />}
+                />
+              </Routes>
+              <Footer />
+              <Alert />
+            </Router>
+          </main>
+        </AlertProvider>
       </ChakraProvider>
     </>
   );

@@ -20,7 +20,9 @@ const Reservations = () => {
     date: Yup.date().required("Date is required"),
     numberOfDiners: Yup.number()
       .integer()
-      .required("Number of Diners is required"),
+      .required("Number of Diners is required")
+      .min(1, "Number of diners must be at least 1")
+      .max(20, "Number of diners cannot exceed 20"),
     occasion: Yup.string().required("Occasion is required"),
     time: Yup.string().required("Time is required"),
     firstName: Yup.string().required("First Name is required"),
