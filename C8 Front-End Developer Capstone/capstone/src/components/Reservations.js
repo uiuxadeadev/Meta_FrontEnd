@@ -243,10 +243,16 @@ const Reservations = () => {
             </Field>
 
             <Button
-              mt={10}
-              colorScheme="teal"
+              mt={4}
+              mb={4}
+              // colorScheme="teal"
               isLoading={isSubmitting}
               type="submit"
+              w="200px"
+              h="60px"
+              fontSize="xl"
+              color="#333333"
+              bg="#F4CE14"
             >
               Submit
             </Button>

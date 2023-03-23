@@ -20,35 +20,35 @@ import { useAlertContext } from "../context/alertContext";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
+const ReservationSchema = Yup.object().shape({
+  date: Yup.date().required("Date is required"),
+  numberOfDiners: Yup.number()
+    .required("Number of diners is required")
+    .min(1, "Number of diners must be at least 1")
+    .max(20, "Number of diners cannot exceed 20"),
+  occasion: Yup.string().required("Occasion is required"),
+  time: Yup.string().required("Time is required"),
+  firstName: Yup.string().required("First name is required"),
+  lastName: Yup.string().required("Last name is required"),
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required"),
+  phoneNumber: Yup.string()
+    .matches(
+      /^[0-9]{10}$/,
+      "Phone number must be 10 digits without any spaces or dashes"
+    )
+    .required("Phone number is required"),
+  specialRequests: Yup.string().max(
+    500,
+    "Special requests cannot exceed 500 characters"
+  ),
+});
+
 const Order = () => {
   const { isLoading, response, submit } = useSubmit();
   const { onOpen } = useAlertContext();
   // const [date, setDate] = useState("");
-
-  const ReservationSchema = Yup.object().shape({
-    date: Yup.date().required("Date is required"),
-    numberOfDiners: Yup.number()
-      .required("Number of diners is required")
-      .min(1, "Number of diners must be at least 1")
-      .max(20, "Number of diners cannot exceed 20"),
-    occasion: Yup.string().required("Occasion is required"),
-    time: Yup.string().required("Time is required"),
-    firstName: Yup.string().required("First name is required"),
-    lastName: Yup.string().required("Last name is required"),
-    email: Yup.string()
-      .email("Invalid email address")
-      .required("Email is required"),
-    phoneNumber: Yup.string()
-      .matches(
-        /^[0-9]{10}$/,
-        "Phone number must be 10 digits without any spaces or dashes"
-      )
-      .required("Phone number is required"),
-    specialRequests: Yup.string().max(
-      500,
-      "Special requests cannot exceed 500 characters"
-    ),
-  });
 
   const formik = useFormik({
     initialValues: {
@@ -122,7 +122,7 @@ const Order = () => {
                   <FormErrorMessage>{formik.errors.date}</FormErrorMessage>
                 </FormControl> */}
 
-              <FormControl
+              {/* <FormControl
                 isInvalid={formik.errors.time && formik.touched.time}
                 mt={3}
                 mb={5}
@@ -180,6 +180,7 @@ const Order = () => {
                   </FormControl>
                 </Box>
               </Flex>
+
               <FormControl
                 isInvalid={formik.touched.email && !!formik.errors.email}
                 mt={3}
@@ -194,6 +195,7 @@ const Order = () => {
                 />
                 <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
               </FormControl>
+               */}
               <FormControl
                 isInvalid={
                   !!formik.errors.specialRequests &&
@@ -219,7 +221,7 @@ const Order = () => {
                   {formik.errors.specialRequests}
                 </FormErrorMessage>
               </FormControl>
-              <FormControl
+              {/* <FormControl
                 isInvalid={formik.errors.occasion && formik.touched.occasion}
                 mt={3}
                 mb={5}
@@ -276,7 +278,7 @@ const Order = () => {
                 <FormErrorMessage>
                   {formik.errors.numberOfDiners}
                 </FormErrorMessage>
-              </FormControl>
+              </FormControl> */}
 
               <Button
                 mt={10}
