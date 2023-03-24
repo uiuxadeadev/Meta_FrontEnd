@@ -12,6 +12,7 @@ import ReservationConfirmed from "./components/ReservationConfirmed";
 import Order from "./components/Order";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import Test from "./components/Test";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
                 <Route path="/menu" element={<Menu />} />
                 <Route path="/reservations" element={<Reservations />} />
                 <Route path="/order" element={<Order />} />
+                <Route path="/test" element={<Test />} />
                 <Route
                   path="/ReservationConfirmed"
                   element={<ReservationConfirmed />}

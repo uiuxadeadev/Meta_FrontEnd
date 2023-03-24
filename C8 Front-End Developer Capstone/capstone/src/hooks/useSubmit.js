@@ -24,7 +24,10 @@ const useSubmit = () => {
         type: "success",
         message: `Thanks for your submission ${data.firstName}, we will get back to you shortly!`,
       });
-      navigateTo("/ReservationConfirmed");
+
+      await wait(5000);
+      // navigateTo("/ReservationConfirmed");
+      navigateTo("/ReservationConfirmed", { state: { data: data } });
     } catch (error) {
       setResponse({
         type: "error",

@@ -1,266 +1,307 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useFormik } from "formik";
 import {
   Box,
+  Button,
   Flex,
   FormControl,
-  FormLabel,
   FormErrorMessage,
+  FormLabel,
+  Heading,
   Input,
   Select,
   Textarea,
-  Button,
+  VStack,
 } from "@chakra-ui/react";
-import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+import FullScreenSection from "./FullScreenSection";
+import useSubmit from "../hooks/useSubmit";
+import { useAlertContext } from "../context/alertContext";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const Reservations = () => {
-  const validationSchema = Yup.object().shape({
-    date: Yup.date().required("Date is required"),
-    numberOfDiners: Yup.number()
-      .integer()
-      .required("Number of Diners is required")
-      .min(1, "Number of diners must be at least 1")
-      .max(20, "Number of diners cannot exceed 20"),
-    occasion: Yup.string().required("Occasion is required"),
-    time: Yup.string().required("Time is required"),
-    firstName: Yup.string().required("First Name is required"),
-    lastName: Yup.string().required("Last Name is required"),
-    email: Yup.string().email().required("Email is required"),
-    phoneNumber: Yup.string().required("Phone Number is required"),
-    specialRequests: Yup.string().max(
-      500,
-      "Special Requests must be 500 characters or less"
-    ),
+const Order = () => {
+  const { isLoading, response, submit } = useSubmit();
+  const { onOpen } = useAlertContext();
+
+  const formik = useFormik({
+    initialValues: {
+      date: null,
+      numberOfDiners: "",
+      occasion: "",
+      time: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+      phoneNumber: "",
+      specialRequests: "",
+    },
+    onSubmit: (values) => {
+      console.log(values);
+      submit("https://john.com/contactme", values);
+    },
+    validationSchema: Yup.object({
+      date: Yup.date().required("Date is required"),
+      specialRequests: Yup.string().max(
+        500,
+        "Special requests cannot exceed 500 characters"
+      ),
+      email: Yup.string()
+        .email("Invalid email address")
+        .required("Email is required"),
+      firstName: Yup.string().required("First name is required"),
+      lastName: Yup.string().required("Last name is required"),
+      numberOfDiners: Yup.number()
+        .required("Number of diners is required")
+        .min(1, "Number of diners must be at least 1")
+        .max(20, "Number of diners cannot exceed 20"),
+      occasion: Yup.string().required("Occasion is required"),
+      time: Yup.string().required("Time is required"),
+      phoneNumber: Yup.string()
+        .matches(
+          /^[0-9]{10}$/,
+          "Phone number must be 10 digits without any spaces or dashes"
+        )
+        .required("Phone number is required"),
+    }),
   });
 
+  useEffect(() => {
+    if (response) {
+      onOpen(response.type, response.message);
+      if (response.type === "success") {
+        formik.resetForm();
+      }
+    }
+  }, [response]);
+
   const timeOptions = [
-    "17:00am",
-    "17:30am",
-    "18:00pm",
-    "18:30pm",
-    "19:00pm",
-    "19:30pm",
-    "20:00pm",
-    "20:00pm",
-    "20:30pm",
-    "21:00pm",
+    "17:00",
+    "17:30",
+    "18:00",
+    "18:30",
+    "19:00",
+    "19:30",
+    "20:00",
+    "20:30",
+    "21:00",
   ];
 
-  const initialValues = {
-    date: null,
-    numberOfDiners: "",
-    occasion: "",
-    time: "",
-    firstName: "",
-    lastName: "",
-    email: "",
-    phoneNumber: "",
-    specialRequests: "",
-  };
-
-  const handleSubmit = (values, actions) => {
-    console.log(values);
-    actions.setSubmitting(false);
-  };
-
   return (
-    <Box maxW="xl" mx="auto" mt={10} p={5}>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-      >
-        {({ values, errors, touched, isSubmitting, setFieldValue }) => (
-          <Form>
-            <Field name="date">
-              {({ field, form }) => (
-                <FormControl
-                  isInvalid={errors.date && touched.date}
-                  mt={3}
-                  mb={5}
+    <FullScreenSection
+      isDarkBackground
+      backgroundColor="#495E57"
+      py={16}
+      spacing={8}
+    >
+      <VStack w="1024px" p={32} alignItems="flex-start">
+        <Heading as="h1" id="contactme-section">
+          Reservations
+        </Heading>
+        <Box p={6} rounded="md" w="100%">
+          <form onSubmit={formik.handleSubmit}>
+            <VStack spacing={4}>
+              <FormControl
+                isInvalid={formik.errors.date && formik.touched.date}
+                mt={3}
+                mb={5}
+              >
+                <FormLabel htmlFor="date">Date</FormLabel>
+                <DatePicker
+                  id="date"
+                  selected={formik.values.date}
+                  onChange={(date) => formik.setFieldValue("date", date)}
+                  minDate={new Date()}
+                  dateFormat="yyyy/MM/dd"
+                  customInput={<Input />}
+                />
+                <FormErrorMessage>{formik.errors.date}</FormErrorMessage>
+              </FormControl>
+
+              <FormControl
+                isInvalid={
+                  formik.errors.numberOfDiners && formik.touched.numberOfDiners
+                }
+                mt={3}
+                mb={5}
+              >
+                <FormLabel htmlFor="numberOfDiners">Number of Diners</FormLabel>
+                <Input
+                  id="numberOfDiners"
+                  name="numberOfDiners"
+                  type="numberOfDiners"
+                  placeholder="Maximum 20 people"
+                  {...formik.getFieldProps("numberOfDiners")}
+                />
+                <FormErrorMessage>
+                  {formik.errors.numberOfDiners}
+                </FormErrorMessage>
+              </FormControl>
+
+              <FormControl
+                isInvalid={formik.errors.occasion && formik.touched.occasion}
+                mt={3}
+                mb={5}
+              >
+                <FormLabel htmlFor="occasion">Occasion</FormLabel>
+                <Select
+                  id="occasion"
+                  name="occasion"
+                  {...formik.getFieldProps("occasion")}
                 >
-                  <FormLabel htmlFor="date">Date</FormLabel>
-                  <DatePicker
-                    id="date"
-                    {...field}
-                    selected={values.date}
-                    minDate={new Date()}
-                    dateFormat="yyyy/MM/dd"
-                    onChange={(val) => setFieldValue("date", val)}
-                    customInput={<Input />}
-                  />
-                  <FormErrorMessage>{errors.date}</FormErrorMessage>
-                </FormControl>
-              )}
-            </Field>
+                  <option value="">Select an Occasion</option>
+                  <option value="Anniversary">Anniversary</option>
+                  <option value="Birthday">Birthday</option>
+                  <option value="Business Meeting">Business Meeting</option>
+                  <option value="Casual Dining">Casual Dining</option>
+                  <option value="Family Gathering">Family Gathering</option>
+                  <option value="Other">Other</option>
+                </Select>
+                <FormErrorMessage>{formik.errors.occasion}</FormErrorMessage>
+              </FormControl>
 
-            <Field name="numberOfDiners">
-              {({ field, form }) => (
-                <FormControl
-                  isInvalid={errors.numberOfDiners && touched.numberOfDiners}
-                  mt={3}
-                  mb={5}
-                >
-                  <FormLabel htmlFor="numberOfDiners">
-                    Number of Diners
-                  </FormLabel>
-                  <Input type="number" {...field} id="numberOfDiners" />
-                  <FormErrorMessage>{errors.numberOfDiners}</FormErrorMessage>
-                </FormControl>
-              )}
-            </Field>
+              <FormControl
+                isInvalid={formik.errors.time && formik.touched.time}
+                mt={3}
+                mb={5}
+              >
+                <FormLabel htmlFor="time">Time</FormLabel>
+                <Select id="time" name="time" {...formik.getFieldProps("time")}>
+                  <option value="">Select a Time</option>
+                  {timeOptions.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </Select>
+                <FormErrorMessage>{formik.errors.time}</FormErrorMessage>
+              </FormControl>
 
-            <Field name="occasion">
-              {({ field, form }) => (
-                <FormControl
-                  isInvalid={errors.occasion && touched.occasion}
-                  mt={3}
-                  mb={5}
-                >
-                  <FormLabel htmlFor="occasion">Occasion</FormLabel>
-                  <Select {...field} id="occasion">
-                    <option value="">Select an Occasion</option>
-                    <option value="Anniversary">Anniversary</option>
-                    <option value="Birthday">Birthday</option>
-                    <option value="Business Meeting">Business Meeting</option>
-                    <option value="Casual Dining">Casual Dining</option>
-                    <option value="Family Gathering">Family Gathering</option>
-                    <option value="Other">Other</option>
-                  </Select>
-                  <FormErrorMessage>{errors.occasion}</FormErrorMessage>
-                </FormControl>
-              )}
-            </Field>
+              <Flex
+                direction="row"
+                // mx="auto"
+                justify="space-between"
+                align="center"
+              >
+                <Box flex="1" mr={3} w="500px">
+                  <FormControl
+                    isInvalid={
+                      formik.touched.firstName && !!formik.errors.firstName
+                    }
+                    mt={3}
+                    mb={5}
+                  >
+                    <FormLabel htmlFor="firstName">First Name</FormLabel>
+                    <Input
+                      id="firstName"
+                      name="firstName"
+                      {...formik.getFieldProps("firstName")}
+                    />
+                    <FormErrorMessage>
+                      {formik.errors.firstName}
+                    </FormErrorMessage>
+                  </FormControl>
+                </Box>
 
-            <Field name="time">
-              {({ field, form }) => (
-                <FormControl
-                  isInvalid={errors.time && touched.time}
-                  mt={3}
-                  mb={5}
-                >
-                  <FormLabel htmlFor="time">Time</FormLabel>
-                  <Select {...field} id="time">
-                    <option value="">Select a Time</option>
-                    {timeOptions.map((option) => (
-                      <option key={option} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </Select>
-                  <FormErrorMessage>{errors.time}</FormErrorMessage>
-                </FormControl>
-              )}
-            </Field>
+                <Box flex="1" ml={3}>
+                  <FormControl
+                    isInvalid={
+                      formik.touched.lastName && !!formik.errors.lastName
+                    }
+                    mt={3}
+                    mb={5}
+                  >
+                    <FormLabel htmlFor="lastName">Last Name</FormLabel>
+                    <Input
+                      id="lastName"
+                      name="lastName"
+                      {...formik.getFieldProps("lastName")}
+                    />
+                    <FormErrorMessage>
+                      {formik.errors.lastName}
+                    </FormErrorMessage>
+                  </FormControl>
+                </Box>
+              </Flex>
 
-            <Flex direction="row">
-              <Box flex={1} mr={3}>
-                <Field name="firstName">
-                  {({ field, form }) => (
-                    <FormControl
-                      isInvalid={errors.firstName && touched.firstName}
-                      mt={3}
-                      mb={5}
-                    >
-                      <FormLabel htmlFor="firstName">First Name</FormLabel>
-                      <Input {...field} id="firstName" />
-                      <FormErrorMessage>{errors.firstName}</FormErrorMessage>
-                    </FormControl>
-                  )}
-                </Field>
-              </Box>
+              <FormControl
+                isInvalid={formik.touched.email && !!formik.errors.email}
+                mt={3}
+                mb={5}
+              >
+                <FormLabel htmlFor="email">Email Address</FormLabel>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  {...formik.getFieldProps("email")}
+                />
+                <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
+              </FormControl>
 
-              <Box flex={1} ml={3}>
-                <Field name="lastName">
-                  {({ field, form }) => (
-                    <FormControl
-                      isInvalid={errors.lastName && touched.lastName}
-                      mt={3}
-                      mb={5}
-                    >
-                      <FormLabel htmlFor="lastName">Last Name</FormLabel>
-                      <Input {...field} id="lastName" />
-                      <FormErrorMessage>{errors.lastName}</FormErrorMessage>
-                    </FormControl>
-                  )}
-                </Field>
-              </Box>
-            </Flex>
+              <FormControl
+                isInvalid={
+                  formik.errors.phoneNumber && formik.touched.phoneNumber
+                }
+                mt={3}
+                mb={5}
+              >
+                <FormLabel htmlFor="phoneNumber">Phone Number</FormLabel>
+                <Input
+                  id="phoneNumber"
+                  name="phoneNumber"
+                  type="phoneNumber"
+                  {...formik.getFieldProps("phoneNumber")}
+                />
+                <FormErrorMessage>{formik.errors.phoneNumber}</FormErrorMessage>
+              </FormControl>
 
-            <Field name="email">
-              {({ field, form }) => (
-                <FormControl
-                  isInvalid={errors.email && touched.email}
-                  mt={3}
-                  mb={5}
-                >
-                  <FormLabel htmlFor="email">Email</FormLabel>
-                  <Input {...field} id="email" />
-                  <FormErrorMessage>{errors.email}</FormErrorMessage>
-                </FormControl>
-              )}
-            </Field>
+              <FormControl
+                isInvalid={
+                  !!formik.errors.specialRequests &&
+                  formik.touched.specialRequests &&
+                  Boolean(formik.errors.specialRequests)
+                }
+                mt={3}
+                mb={5}
+              >
+                <FormLabel htmlFor="specialRequests">
+                  {" "}
+                  Special Requests (max 500 characters)
+                </FormLabel>
+                <Textarea
+                  id="specialRequests"
+                  name="specialRequests"
+                  height={250}
+                  maxLength={500}
+                  placeholder="Enter any special requests here..."
+                  {...formik.getFieldProps("specialRequests")}
+                />
+                <FormErrorMessage>
+                  {formik.errors.specialRequests}
+                </FormErrorMessage>
+              </FormControl>
 
-            <Field name="phoneNumber">
-              {({ field, form }) => (
-                <FormControl
-                  isInvalid={errors.phoneNumber && touched.phoneNumber}
-                  mt={3}
-                  mb={5}
-                >
-                  <FormLabel htmlFor="phoneNumber">Phone Number</FormLabel>
-                  <Input {...field} id="phoneNumber" />
-                  <FormErrorMessage>{errors.phoneNumber}</FormErrorMessage>
-                </FormControl>
-              )}
-            </Field>
-
-            <Field name="specialRequests">
-              {({ field, form }) => (
-                <FormControl
-                  isInvalid={
-                    errors.specialRequests &&
-                    touched.specialRequests &&
-                    Boolean(form.errors.specialRequests)
-                  }
-                  mt={3}
-                  mb={5}
-                >
-                  <FormLabel htmlFor="specialRequests">
-                    Special Requests (max 500 characters)
-                  </FormLabel>
-                  <Textarea
-                    {...field}
-                    id="specialRequests"
-                    maxLength={500}
-                    placeholder="Enter any special requests here..."
-                  />
-                  <FormErrorMessage>{errors.specialRequests}</FormErrorMessage>
-                </FormControl>
-              )}
-            </Field>
-
-            <Button
-              mt={4}
-              mb={4}
-              // colorScheme="teal"
-              isLoading={isSubmitting}
-              type="submit"
-              w="200px"
-              h="60px"
-              fontSize="xl"
-              color="#333333"
-              bg="#F4CE14"
-            >
-              Submit
-            </Button>
-          </Form>
-        )}
-      </Formik>
-    </Box>
+              <Button
+                mt={4}
+                mb={4}
+                // colorScheme="teal"
+                isLoading={isLoading}
+                type="submit"
+                w="200px"
+                h="60px"
+                fontSize="xl"
+                color="#333333"
+                bg="#F4CE14"
+              >
+                Submit
+              </Button>
+            </VStack>
+          </form>
+        </Box>
+      </VStack>
+    </FullScreenSection>
   );
 };
 
-export default Reservations;
+export default Order;

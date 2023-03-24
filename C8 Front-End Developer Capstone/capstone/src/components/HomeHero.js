@@ -1,16 +1,16 @@
 import React from "react";
-import {
-  Flex,
-  Spacer,
-  Box,
-  Text,
-  Button,
-  Image,
-  AspectRatio,
-} from "@chakra-ui/react";
+import { Flex, Box, Text, Button, Image } from "@chakra-ui/react";
 import restaurantFood from "../assets/images/restauranfood.jpg";
+// import { withRouter } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const HomeHero = () => {
+  const navigateTo = useNavigate();
+  function handleClick() {
+    // history.push("/reservations");
+    navigateTo("/reservations");
+  }
+
   return (
     <>
       <Flex bgColor="#495E57">
@@ -40,31 +40,15 @@ const HomeHero = () => {
               color="#333333"
               bg="#F4CE14"
               mt="4"
+              onClick={handleClick}
             >
               Reserve a Table
             </Button>
-            {/* <Button bg="brand.500" color="brand.text" mt="4">
-              Reserve a Table
-            </Button> */}
           </Box>
-          <Spacer />
           <Box>
-            {/* <AspectRatio maxW="400px" ratio={375 / 400}>
-              <Image
-                src={restaurantFood}
-                alt="Restaurant logo"
-                objectFit="cover"
-                w="375px"
-                h="400px"
-                borderRadius="0.625rem"
-                position="relative"
-                top="50px"
-              />
-            </AspectRatio> */}
             <Image
               src={restaurantFood}
               alt="Restaurant logo"
-              //   maxW="375px"
               w="375px"
               h="400px"
               borderRadius="0.625rem"

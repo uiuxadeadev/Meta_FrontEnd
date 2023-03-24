@@ -51,6 +51,9 @@ const HeaderNav = (props) => {
           <Button as={Link} to="/order" variant="ghost" colorScheme="gray">
             Order Online
           </Button>
+          <Button as={Link} to="/test" variant="ghost" colorScheme="gray">
+            Test
+          </Button>
         </Flex>
       </Flex>
     </>
