@@ -95,7 +95,7 @@ const Order = () => {
       spacing={8}
     >
       <VStack w="1024px" p={32} alignItems="flex-start">
-        <Heading as="h1" id="contactme-section">
+        <Heading as="h1">
           Reservations
         </Heading>
         <Box p={6} rounded="md" w="100%">
