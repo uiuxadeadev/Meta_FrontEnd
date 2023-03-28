@@ -20,7 +20,7 @@ import { useAlertContext } from "../context/alertContext";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const Order = () => {
+const Reservations = () => {
   const { isLoading, response, submit } = useSubmit();
   const { onOpen } = useAlertContext();
 
@@ -95,9 +95,7 @@ const Order = () => {
       spacing={8}
     >
       <VStack w="1024px" p={32} alignItems="flex-start">
-        <Heading as="h1">
-          Reservations
-        </Heading>
+        <Heading as="h1">Reservations</Heading>
         <Box p={6} rounded="md" w="100%">
           <form onSubmit={formik.handleSubmit}>
             <VStack spacing={4}>
@@ -304,4 +302,4 @@ const Order = () => {
   );
 };
 
-export default Order;
+export default Reservations;

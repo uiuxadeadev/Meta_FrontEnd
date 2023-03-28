@@ -1,41 +1,40 @@
-import React, { useReducer } from "react";
-import { Box, Flex, Text, Heading, VStack, Button } from "@chakra-ui/react";
-import FullScreenSection from "./FullScreenSection";
-
-const reducer = (state, action) => {
-  if (action.type === "buy_ingredients") return { money: state.money - 10 };
-  if (action.type === "sell_a_meal") return { money: state.money + 10 };
-  if (action.type === "celebrity_visit") return { money: state.money + 5000 };
-  return state;
-};
+import React, { useState, useReducer } from "react";
+import BookingForm from "./Test";
 
 function Order() {
-  const initialState = { money: 100 };
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [selectedDate, setSelectedDate] = useState("");
+  const [availableTimes, dispatch] = useReducer(reducer, [], initializeTimes);
+
+  function initializeTimes() {
+    // You can initialize the available times state here
+    // For example, return an array of available times for a specific date range
+    return ["10:00", "11:00", "12:00"];
+  }
+
+  function reducer(availableTimes, action) {
+    // Update the available times state based on the selected date
+    switch (action.type) {
+      case "UPDATE_TIMES":
+        return ["13:00", "14:00", "15:00"]; // Replace with your logic to update the times based on the selected date
+      default:
+        return availableTimes;
+    }
+  }
+
+  function updateTimes() {
+    dispatch({ type: "UPDATE_TIMES" });
+  }
+
   return (
-    <>
-      <FullScreenSection
-        isDarkBackground
-        backgroundColor="#495E57"
-        py={6}
-        spacing={8}
-      >
-        <VStack w="1024px" p={5} alignItems="flex-start">
-          <Heading as="h1">Wallet: {state.money}</Heading>
-          <Box p={6} rounded="md" w="100%" m={5}>
-            <Button m={5} onClick={() => dispatch({ type: "buy_ingredients" })}>
-              Shopping for veggies!
-            </Button>
-            <Button m={5} onClick={() => dispatch({ type: "sell_a_meal" })}>
-              Serve a meal to the customer
-            </Button>
-            <Button m={5} onClick={() => dispatch({ type: "celebrity_visit" })}>
-              Celebrity visit
-            </Button>
-          </Box>
-        </VStack>
-      </FullScreenSection>
-    </>
+    <div>
+      <h1>Table Booking App</h1>
+      <BookingForm
+        selectedDate={selectedDate}
+        setSelectedDate={setSelectedDate}
+        availableTimes={availableTimes}
+        updateTimes={updateTimes}
+      />
+    </div>
   );
 }
 

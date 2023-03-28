@@ -42,7 +42,7 @@ function ReservationConfirmed() {
           <Spacer />
 
           <Box>
-            {/* <VStack p={5} alignItems="flex-start" maxW="450px"> */}
+            <VStack p={5} alignItems="flex-start" maxW="450px">
             <Heading as="h1">Your Reservations</Heading>
             <Box py={6} rounded="md" w="100%">
               <Box flex="1">{data.date.toLocaleDateString()};</Box>
@@ -78,7 +78,7 @@ function ReservationConfirmed() {
                 {data.specialRequests}
               </Box>
             </Box>
-            {/* </VStack> */}
+            </VStack>
           </Box>
         </Flex>
       </FullScreenSection>
