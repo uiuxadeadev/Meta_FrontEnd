@@ -1,18 +1,26 @@
+import React from "react";
 import Reservations from "./components/Reservations";
+import { BrowserRouter as Router } from "react-router-dom";
+import { waitFor } from "@testing-library/react";
 
 const { fireEvent, render, screen } = require("@testing-library/react");
 
 describe("Feedback Form", () => {
   test("Renders the reservation form", () => {
+    
     const firstName = "test";
     const handleSubmit = jest.fn();
     render(
       <ErrorBoundary>
-        <Reservations onSubmit={handleSubmit} />
+        <Router>
+          <Reservations onSubmit={handleSubmit} />
+        </Router>
       </ErrorBoundary>
     );
 
-    const firstNameInput = screen.getByLabelText(/First Name/);
+    // const firstNameInput = screen.getByLabelText(/First Name/);
+    const firstNameInput = screen.getByLabelText("First Name");
+    // const firstNameInput = screen.getByRole("firstName", { name: "First Name" });
     fireEvent.change(firstNameInput, { target: { value: firstName } });
 
     const submitButton = screen.getByRole("button");
@@ -23,7 +31,6 @@ describe("Feedback Form", () => {
     });
   });
 });
-
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
@@ -35,10 +42,10 @@ class ErrorBoundary extends React.Component {
     return { hasError: true };
   }
 
-  componentDidCatch(error, errorInfo) {
-    // You can also log the error to an error reporting service
-    logErrorToMyService(error, errorInfo);
-  }
+//   // componentDidCatch(error, errorInfo) {
+//   //   // You can also log the error to an error reporting service
+//   //   logErrorToMyService(error, errorInfo);
+//   // }
 
   render() {
     if (this.state.hasError) {
