@@ -1,13 +1,11 @@
 import React from "react";
 import Reservations from "./components/Reservations";
 import { BrowserRouter as Router } from "react-router-dom";
-import { waitFor } from "@testing-library/react";
 
 const { fireEvent, render, screen } = require("@testing-library/react");
 
 describe("Feedback Form", () => {
   test("Renders the reservation form", () => {
-    
     const firstName = "test";
     const handleSubmit = jest.fn();
     render(
@@ -26,7 +24,7 @@ describe("Feedback Form", () => {
     const submitButton = screen.getByRole("button");
     fireEvent.click(submitButton);
 
-    expect(handleSubmit).toHaveBeenCalledWith({
+    expect(firstNameInput).toHaveBeenCalledWith({
       firstName,
     });
   });
@@ -42,10 +40,10 @@ class ErrorBoundary extends React.Component {
     return { hasError: true };
   }
 
-//   // componentDidCatch(error, errorInfo) {
-//   //   // You can also log the error to an error reporting service
-//   //   logErrorToMyService(error, errorInfo);
-//   // }
+  //   // componentDidCatch(error, errorInfo) {
+  //   //   // You can also log the error to an error reporting service
+  //   //   logErrorToMyService(error, errorInfo);
+  //   // }
 
   render() {
     if (this.state.hasError) {

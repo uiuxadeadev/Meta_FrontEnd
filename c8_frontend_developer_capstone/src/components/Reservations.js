@@ -22,7 +22,9 @@ import DatePicker from "react-datepicker";
 
 const Reservations = () => {
   const { isLoading, response, submit } = useSubmit();
-  const { onOpen } = useAlertContext();
+  // const { onOpen } = useAlertContext();
+  // for test
+  const { onOpen = () => {} } = useAlertContext();
 
   const formik = useFormik({
     initialValues: {
@@ -281,6 +283,7 @@ const Reservations = () => {
               </FormControl>
 
               <Button
+                id="button"
                 mt={4}
                 mb={4}
                 // colorScheme="teal"
