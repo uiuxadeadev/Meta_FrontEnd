@@ -2,61 +2,33 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Flex, Button } from "@chakra-ui/react";
 
+const navLinks = [
+  { to: "/", name: "Home" },
+  { to: "/about", name: "About" },
+  { to: "/menu", name: "Menu" },
+  { to: "/reservations", name: "Reservations" },
+  { to: "/order", name: "Order Online" },
+  { to: "/test", name: "Test" },
+];
+
 const HeaderNav = (props) => {
   return (
-    <>
-      {/* <nav>
-        <ul>
-          <li onClick={() => props.setActivePage("Home")}>Home</li>
-          <li onClick={() => props.setActivePage("About")}>About</li>
-          <li onClick={() => props.setActivePage("Menu")}>Menu</li>
-          <li>
-            <Link to="/reservations">Reservations</Link>
-          </li>
-        </ul>
-      </nav> */}
-
-      <Flex as="nav" justify="space-between" align="center">
-        <Flex as="ul">
-          <Button as={Link} to="/" variant="ghost" colorScheme="gray" mr="2">
-            Home
-          </Button>
+    <Flex as="nav" justify="space-between" align="center">
+      <Flex as="ul">
+        {navLinks.map((link, index) => (
           <Button
+            key={index}
             as={Link}
-            to="/about"
+            to={link.to}
             variant="ghost"
             colorScheme="gray"
             mr="2"
           >
-            About
+            {link.name}
           </Button>
-          <Button
-            as={Link}
-            to="/menu"
-            variant="ghost"
-            colorScheme="gray"
-            mr="2"
-          >
-            Menu
-          </Button>
-          <Button
-            as={Link}
-            to="/reservations"
-            variant="ghost"
-            colorScheme="gray"
-            mr="2"
-          >
-            Reservations
-          </Button>
-          <Button as={Link} to="/order" variant="ghost" colorScheme="gray">
-            Order Online
-          </Button>
-          <Button as={Link} to="/test" variant="ghost" colorScheme="gray">
-            Test
-          </Button>
-        </Flex>
+        ))}
       </Flex>
-    </>
+    </Flex>
   );
 };
 
